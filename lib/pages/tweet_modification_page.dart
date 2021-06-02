@@ -24,7 +24,7 @@ class _TweetModificationPageState extends State<TweetModificationPage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-            child: TweetCanvas(),
+            child: TweetCanvas(tweetLink: tweetLink),
           ),
           CustomizeTweet(),
         ],
