@@ -20,6 +20,7 @@ class _TweetModificationPageState extends State<TweetModificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blueAccent,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
