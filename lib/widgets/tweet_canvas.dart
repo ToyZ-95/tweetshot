@@ -17,7 +17,7 @@ class _TweetCanvasState extends State<TweetCanvas> {
   _TweetCanvasState({required this.tweetLink});
   @override
   Widget build(BuildContext context) {
-    return TweetCard(tweetLink: tweetLink);
+    return SizedBox(child: TweetCard(tweetLink: tweetLink));
     //
     //
     // Padding(

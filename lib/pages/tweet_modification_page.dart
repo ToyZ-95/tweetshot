@@ -20,12 +20,24 @@ class _TweetModificationPageState extends State<TweetModificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueAccent,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          TweetCanvas(tweetLink: tweetLink),
-          CustomizeTweet(),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 200,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    color: Colors.lightBlueAccent,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+                    child: TweetCanvas(tweetLink: tweetLink)),
+              ],
+            ),
+          ),
+          Expanded(child: CustomizeTweet()),
         ],
       ),
     );

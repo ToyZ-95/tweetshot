@@ -7,11 +7,11 @@ enum Events { Fetching, Fecthed, Error }
 class TweetCanvasBloc {
   late Tweet tweet;
 
-  final _eventTweetStreamController = StreamController<Events>();
+  final _eventTweetStreamController = StreamController<Events>.broadcast();
   StreamSink<Events> get eventTweetSink => _eventTweetStreamController.sink;
   Stream<Events> get eventTweetStream => _eventTweetStreamController.stream;
 
-  final _stateTweetStreamController = StreamController<Object>();
+  final _stateTweetStreamController = StreamController<Object>.broadcast();
   StreamSink<Object> get stateTweetSink => _stateTweetStreamController.sink;
   Stream<Object> get stateTweetStream => _stateTweetStreamController.stream;
 
