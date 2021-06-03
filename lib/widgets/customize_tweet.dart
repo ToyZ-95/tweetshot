@@ -9,8 +9,9 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250.0,
-      decoration: BoxDecoration(color: Colors.white70),
+      height: 150.0,
+      decoration: BoxDecoration(color: Colors.amber),
+      child: Center(child: Text('This is for customize tweet')),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:intl/intl.dart';
 import 'package:tweetshot/models/tweet.dart';
 import 'package:tweetshot/services/twitter_api.dart';
 
