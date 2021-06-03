@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:intl/intl.dart';
 import 'package:tweetshot/models/tweet.dart';
 import 'package:tweetshot/services/twitter_api.dart';
 
@@ -35,9 +36,12 @@ class TweetCanvasBloc {
 
     String id = Uri.parse(tweetLink).pathSegments.last;
 
-    tweet = await twitterApi.getTweet(id);
-
-    eventTweetSink.add(Events.Fecthed);
+    try {
+      tweet = await twitterApi.getTweet(id);
+      eventTweetSink.add(Events.Fecthed);
+    } catch (ex) {
+      eventTweetSink.add(Events.Error);
+    }
   }
 
   void dispose() {

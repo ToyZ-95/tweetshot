@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:tweetshot/blocs/tweet_canvas_bloc.dart';
 import 'package:tweetshot/models/tweet.dart';
 
@@ -78,7 +79,8 @@ class _TweetCardState extends State<TweetCard> {
                   ),
                   SizedBox(height: 5.0),
                   Text(
-                    tweet.data[0].createdAt.toString(),
+                    DateFormat('h:mm a · MMM d, yyyy')
+                        .format(tweet.data[0].createdAt),
                     style: TextStyle(
                         fontSize: 13.0,
                         fontWeight: FontWeight.w400,
@@ -91,7 +93,7 @@ class _TweetCardState extends State<TweetCard> {
                         Icon(
                           Icons.favorite,
                           color: Colors.pink,
-                          size: 20.0,
+                          size: 16.0,
                           semanticLabel:
                               'Text to announce in accessibility modes',
                         ),
@@ -103,12 +105,13 @@ class _TweetCardState extends State<TweetCard> {
                               fontWeight: FontWeight.w400,
                               color: Colors.grey),
                         ),
-                        SizedBox(width: 24.0),
+                        SizedBox(width: 32.0),
                         Icon(
                           Icons.repeat,
                           color: Colors.green,
-                          size: 20.0,
+                          size: 16.0,
                         ),
+                        SizedBox(width: 5.0),
                         Text(
                           tweet.data[0].publicMetrics.retweetCount.toString(),
                           style: TextStyle(
@@ -116,12 +119,13 @@ class _TweetCardState extends State<TweetCard> {
                               fontWeight: FontWeight.w400,
                               color: Colors.grey),
                         ),
-                        SizedBox(width: 24.0),
+                        SizedBox(width: 32.0),
                         Icon(
                           Icons.mode_comment_outlined,
                           color: Colors.blueGrey,
-                          size: 20.0,
+                          size: 16.0,
                         ),
+                        SizedBox(width: 5.0),
                         Text(
                           tweet.data[0].publicMetrics.replyCount.toString(),
                           style: TextStyle(
@@ -142,12 +146,6 @@ class _TweetCardState extends State<TweetCard> {
             } else {
               return Center(child: Text(snapshot.data.toString()));
             }
-
-            // else {
-            //   return Center(
-            //     child: CircularProgressIndicator(),
-            //   );
-            // }
           },
         ),
       ),
