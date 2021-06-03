@@ -1,11 +1,13 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:tweetshot/models/tweet.dart';
 import 'package:tweetshot/services/twitter_api.dart';
 
-enum Events { Fetching, Fecthed, Error }
+enum Events { Fetching, Fecthed, Error, BackgroundChanged }
 
 class TweetCanvasBloc {
   late Tweet tweet;
+  Color canvasColor = Colors.blueAccent;
 
   final _eventTweetStreamController = StreamController<Events>.broadcast();
   StreamSink<Events> get eventTweetSink => _eventTweetStreamController.sink;
@@ -15,6 +17,14 @@ class TweetCanvasBloc {
   StreamSink<Object> get stateTweetSink => _stateTweetStreamController.sink;
   Stream<Object> get stateTweetStream => _stateTweetStreamController.stream;
 
+  final _eventCanvasController = StreamController<Events>.broadcast();
+  StreamSink<Events> get eventCanvasSink => _eventCanvasController.sink;
+  Stream<Events> get eventCanvasStream => _eventCanvasController.stream;
+
+  final _stateCanvasController = StreamController<Object>.broadcast();
+  StreamSink<Object> get stateCanvasSink => _stateCanvasController.sink;
+  Stream<Object> get stateCanvasStream => _stateCanvasController.stream;
+
   TweetCanvasBloc() {
     eventTweetStream.listen((event) {
       if (event == Events.Fetching) {
@@ -23,6 +33,12 @@ class TweetCanvasBloc {
         stateTweetSink.add(tweet);
       } else if (event == Events.Error) {
         stateTweetSink.add('Please provide valid link!!!');
+      }
+    });
+
+    eventCanvasStream.listen((event) {
+      if (event == Events.BackgroundChanged) {
+        stateCanvasSink.add(canvasColor);
       }
     });
   }
@@ -43,8 +59,15 @@ class TweetCanvasBloc {
     }
   }
 
+  void setCanvasColor(Color color) {
+    canvasColor = color;
+    eventCanvasSink.add(Events.BackgroundChanged);
+  }
+
   void dispose() {
     _eventTweetStreamController.close();
     _stateTweetStreamController.close();
+    _eventCanvasController.close();
+    _stateCanvasController.close();
   }
 }

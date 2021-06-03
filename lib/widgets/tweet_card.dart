@@ -5,18 +5,19 @@ import 'package:tweetshot/models/tweet.dart';
 
 class TweetCard extends StatefulWidget {
   final String tweetLink;
-
-  TweetCard({required this.tweetLink});
+  final TweetCanvasBloc tweetCanvasBloc;
+  TweetCard({required this.tweetLink, required this.tweetCanvasBloc});
 
   @override
-  _TweetCardState createState() => _TweetCardState(tweetLink: this.tweetLink);
+  _TweetCardState createState() => _TweetCardState(
+      tweetLink: this.tweetLink, tweetCanvasBloc: tweetCanvasBloc);
 }
 
 class _TweetCardState extends State<TweetCard> {
-  final TweetCanvasBloc tweetCanvasBloc = TweetCanvasBloc();
+  final TweetCanvasBloc tweetCanvasBloc;
   final String tweetLink;
 
-  _TweetCardState({required this.tweetLink});
+  _TweetCardState({required this.tweetLink, required this.tweetCanvasBloc});
 
   @override
   void initState() {

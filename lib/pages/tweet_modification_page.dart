@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tweetshot/blocs/tweet_canvas_bloc.dart';
 import 'package:tweetshot/widgets/customize_tweet.dart';
 import 'package:tweetshot/widgets/tweet_canvas.dart';
 
@@ -17,6 +18,18 @@ class _TweetModificationPageState extends State<TweetModificationPage> {
 
   _TweetModificationPageState({required this.tweetLink});
 
+  final TweetCanvasBloc tweetCanvasBloc = TweetCanvasBloc();
+
+  @override
+  void initState() {
+    try {
+      tweetCanvasBloc.fetchTweet(tweetLink);
+    } catch (ex) {
+      tweetCanvasBloc.eventTweetSink.add(Events.Error);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,15 +42,24 @@ class _TweetModificationPageState extends State<TweetModificationPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                    color: Colors.lightBlueAccent,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
-                    child: TweetCanvas(tweetLink: tweetLink)),
+                StreamBuilder<Object>(
+                    stream: tweetCanvasBloc.stateCanvasStream,
+                    builder: (context, snapshot) {
+                      return Container(
+                        color: snapshot.hasData
+                            ? snapshot.data as Color
+                            : Colors.lightBlueAccent,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.0, vertical: 30.0),
+                        child: TweetCanvas(
+                            tweetLink: tweetLink,
+                            tweetCanvasBloc: tweetCanvasBloc),
+                      );
+                    }),
               ],
             ),
           ),
-          Expanded(child: CustomizeTweet()),
+          Expanded(child: CustomizeTweet(tweetCanvasBloc: tweetCanvasBloc)),
         ],
       ),
     );
