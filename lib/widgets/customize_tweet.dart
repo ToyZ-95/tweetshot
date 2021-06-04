@@ -16,20 +16,25 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
   _CustomizeTweetState({required this.tweetCanvasBloc});
 
   openColorPicker() {
-    showDialog(
+    showModalBottomSheet(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         context: context,
         builder: (context) {
-          return AlertDialog(
-            title: const Text('Choose color'),
-            content: SingleChildScrollView(
-              child: ColorPicker(
-                onColorChanged: (Color value) {
-                  tweetCanvasBloc.setCanvasColor(value);
-                },
-                pickerColor: tweetCanvasBloc.canvasColor,
-                showLabel: true,
-                pickerAreaHeightPercent: 0.8,
-              ),
+          return Container(
+            height: MediaQuery.of(context).size.height - 400.0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ColorPicker(
+                  onColorChanged: (Color value) {
+                    tweetCanvasBloc.setCanvasColor(value);
+                  },
+                  pickerColor: tweetCanvasBloc.canvasColor,
+                  showLabel: true,
+                  pickerAreaHeightPercent: 0.70,
+                ),
+              ],
             ),
           );
         });
