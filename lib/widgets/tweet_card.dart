@@ -101,53 +101,58 @@ class _TweetCardState extends State<TweetCard> {
                         color: Colors.grey),
                   ),
                   SizedBox(height: 10.0),
-                  Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.favorite,
-                        color: Colors.pink,
-                        size: 16.0,
-                        semanticLabel:
-                            'Text to announce in accessibility modes',
-                      ),
-                      SizedBox(width: 5.0),
-                      Text(
-                        tweet.data[0].publicMetrics.likeCount.toString(),
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey),
-                      ),
-                      SizedBox(width: 32.0),
-                      Icon(
-                        Icons.repeat,
-                        color: Colors.green,
-                        size: 16.0,
-                      ),
-                      SizedBox(width: 5.0),
-                      Text(
-                        tweet.data[0].publicMetrics.retweetCount.toString(),
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey),
-                      ),
-                      SizedBox(width: 32.0),
-                      Icon(
-                        Icons.mode_comment_outlined,
-                        color: Colors.blueGrey,
-                        size: 16.0,
-                      ),
-                      SizedBox(width: 5.0),
-                      Text(
-                        tweet.data[0].publicMetrics.replyCount.toString(),
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.grey),
-                      ),
-                    ],
-                  ),
+                  StreamBuilder<Events>(
+                      stream: tweetCanvasBloc.stateCustomToggleStream,
+                      builder: (context, snapshot) {
+                        return Row(
+                          children: <Widget>[
+                            Icon(
+                              Icons.favorite,
+                              color: Colors.pink,
+                              size: 16.0,
+                              semanticLabel:
+                                  'Text to announce in accessibility modes',
+                            ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              tweet.data[0].publicMetrics.likeCount.toString(),
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey),
+                            ),
+                            SizedBox(width: 32.0),
+                            Icon(
+                              Icons.repeat,
+                              color: Colors.green,
+                              size: 16.0,
+                            ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              tweet.data[0].publicMetrics.retweetCount
+                                  .toString(),
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey),
+                            ),
+                            SizedBox(width: 32.0),
+                            Icon(
+                              Icons.mode_comment_outlined,
+                              color: Colors.blueGrey,
+                              size: 16.0,
+                            ),
+                            SizedBox(width: 5.0),
+                            Text(
+                              tweet.data[0].publicMetrics.replyCount.toString(),
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey),
+                            ),
+                          ],
+                        );
+                      }),
                 ],
               );
             } else if (snapshot.hasData &&

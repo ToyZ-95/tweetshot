@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:tweetshot/blocs/tweet_canvas_bloc.dart';
+import 'package:tweetshot/widgets/custom_toggle.dart';
 
 class CustomizeTweet extends StatefulWidget {
   final TweetCanvasBloc tweetCanvasBloc;
@@ -16,6 +17,7 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
   _CustomizeTweetState({required this.tweetCanvasBloc});
 
   openColorPicker() {
+    print('abcd');
     showModalBottomSheet(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -55,35 +57,40 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
             padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 3.0),
             child: Row(
               children: [
-                CircleAvatar(
-                  child: IconButton(
-                      icon: Icon(Icons.color_lens_outlined),
-                      onPressed: openColorPicker),
+                CustomToggle(
+                    text: 'Background',
+                    icon: Icon(
+                      Icons.color_lens_outlined,
+                    ),
+                    onPressed: openColorPicker),
+                SizedBox(
+                  width: 10.0,
                 ),
-                CircleAvatar(
-                  child: IconButton(
+                CustomToggle(
+                    text: 'Likes',
                     icon: Icon(Icons.favorite),
-                    onPressed: () {},
-                  ),
+                    onPressed: () {}),
+                SizedBox(
+                  width: 10.0,
                 ),
-                CircleAvatar(
-                  child: IconButton(
+                CustomToggle(
+                    text: 'Retweet',
                     icon: Icon(Icons.repeat),
-                    onPressed: () {},
-                  ),
+                    onPressed: () {}),
+                SizedBox(
+                  width: 10.0,
                 ),
-                CircleAvatar(
-                  child: IconButton(
+                CustomToggle(
+                    text: 'Comment',
                     icon: Icon(Icons.mode_comment_outlined),
-                    onPressed: () {},
-                  ),
+                    onPressed: () {}),
+                SizedBox(
+                  width: 10.0,
                 ),
-                CircleAvatar(
-                  child: IconButton(
+                CustomToggle(
+                    text: 'Date',
                     icon: Icon(Icons.date_range),
-                    onPressed: () {},
-                  ),
-                ),
+                    onPressed: () {}),
               ],
             ),
           ),

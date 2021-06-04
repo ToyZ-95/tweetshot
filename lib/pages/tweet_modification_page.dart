@@ -50,7 +50,7 @@ class _TweetModificationPageState extends State<TweetModificationPage> {
                             ? snapshot.data as Color
                             : Colors.lightBlueAccent,
                         padding: EdgeInsets.symmetric(
-                            horizontal: 30.0, vertical: 30.0),
+                            horizontal: 30.0, vertical: 100.0),
                         child: TweetCanvas(
                             tweetLink: tweetLink,
                             tweetCanvasBloc: tweetCanvasBloc),

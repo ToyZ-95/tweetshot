@@ -3,7 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:tweetshot/models/tweet.dart';
 import 'package:tweetshot/services/twitter_api.dart';
 
-enum Events { Fetching, Fecthed, Error, BackgroundChanged }
+enum Events {
+  Fetching,
+  Fecthed,
+  Error,
+  BackgroundChanged,
+  ShowLike,
+  ShowRetweet,
+  ShowComments
+}
 
 class TweetCanvasBloc {
   late Tweet tweet;
@@ -25,6 +33,18 @@ class TweetCanvasBloc {
   StreamSink<Object> get stateCanvasSink => _stateCanvasController.sink;
   Stream<Object> get stateCanvasStream => _stateCanvasController.stream;
 
+  final _eventCustomToggleController = StreamController<Events>.broadcast();
+  StreamSink<Events> get eventCustomToggleSink =>
+      _eventCustomToggleController.sink;
+  Stream<Events> get eventCustomToggleStream =>
+      _eventCustomToggleController.stream;
+
+  final _stateCustomToggleController = StreamController<Events>.broadcast();
+  StreamSink<Events> get stateCustomToggleSink =>
+      _stateCustomToggleController.sink;
+  Stream<Events> get stateCustomToggleStream =>
+      _stateCustomToggleController.stream;
+
   TweetCanvasBloc() {
     eventTweetStream.listen((event) {
       if (event == Events.Fetching) {
@@ -40,6 +60,10 @@ class TweetCanvasBloc {
       if (event == Events.BackgroundChanged) {
         stateCanvasSink.add(canvasColor);
       }
+    });
+
+    eventCustomToggleStream.listen((event) {
+      stateCustomToggleSink.add(event);
     });
   }
 
@@ -69,5 +93,7 @@ class TweetCanvasBloc {
     _stateTweetStreamController.close();
     _eventCanvasController.close();
     _stateCanvasController.close();
+    _eventCustomToggleController.close();
+    _stateCustomToggleController.close();
   }
 }
