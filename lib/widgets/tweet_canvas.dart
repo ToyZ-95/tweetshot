@@ -19,17 +19,7 @@ class _TweetCanvasState extends State<TweetCanvas> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        child:
-            TweetCard(tweetLink: tweetLink, tweetCanvasBloc: tweetCanvasBloc));
-    //
-    //
-    // Padding(
-    //   padding: const EdgeInsets.symmetric(vertical: 60.0),
-    //   child: (Container(
-    //     padding: EdgeInsets.symmetric(horizontal: 30.0),
-    //     color: Colors.blueAccent,
-    //     child: TweetCard(tweetLink: tweetLink),
-    //   )),
-    // );
+      child: TweetCard(tweetLink: tweetLink, tweetCanvasBloc: tweetCanvasBloc),
+    );
   }
 }

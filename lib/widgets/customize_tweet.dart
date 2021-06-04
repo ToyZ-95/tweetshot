@@ -60,6 +60,30 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
                       icon: Icon(Icons.color_lens_outlined),
                       onPressed: openColorPicker),
                 ),
+                CircleAvatar(
+                  child: IconButton(
+                    icon: Icon(Icons.favorite),
+                    onPressed: () {},
+                  ),
+                ),
+                CircleAvatar(
+                  child: IconButton(
+                    icon: Icon(Icons.repeat),
+                    onPressed: () {},
+                  ),
+                ),
+                CircleAvatar(
+                  child: IconButton(
+                    icon: Icon(Icons.mode_comment_outlined),
+                    onPressed: () {},
+                  ),
+                ),
+                CircleAvatar(
+                  child: IconButton(
+                    icon: Icon(Icons.date_range),
+                    onPressed: () {},
+                  ),
+                ),
               ],
             ),
           ),
