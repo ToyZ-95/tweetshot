@@ -1,20 +1,29 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:tweetshot/blocs/tweet_canvas_bloc.dart';
 import 'package:tweetshot/widgets/custom_toggle.dart';
 
 class CustomizeTweet extends StatefulWidget {
   final TweetCanvasBloc tweetCanvasBloc;
-  CustomizeTweet({required this.tweetCanvasBloc});
+  final ScreenshotController screenshotController;
+  CustomizeTweet(
+      {required this.tweetCanvasBloc, required this.screenshotController});
   @override
-  _CustomizeTweetState createState() =>
-      _CustomizeTweetState(tweetCanvasBloc: this.tweetCanvasBloc);
+  _CustomizeTweetState createState() => _CustomizeTweetState(
+      tweetCanvasBloc: this.tweetCanvasBloc,
+      screenshotController: this.screenshotController);
 }
 
 class _CustomizeTweetState extends State<CustomizeTweet> {
   final TweetCanvasBloc tweetCanvasBloc;
-
-  _CustomizeTweetState({required this.tweetCanvasBloc});
+  final ScreenshotController screenshotController;
+  _CustomizeTweetState(
+      {required this.tweetCanvasBloc, required this.screenshotController});
 
   void openColorPicker() {
     print('abcd');
@@ -40,6 +49,19 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
         );
       },
     );
+  }
+
+  void saveImage() async {
+    if (await Permission.storage.request().isGranted) {
+      screenshotController.capture(delay: Duration(milliseconds: 10)).then(
+        (Uint8List? image) async {
+          // _imageFile = image;
+          if (image != null) {
+            await ImageGallerySaver.saveImage(image);
+          }
+        },
+      );
+    }
   }
 
   @override
@@ -98,6 +120,14 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
                   icon: Icon(Icons.date_range),
                   onPressed: () => tweetCanvasBloc.eventCustomToggleSink
                       .add(Events.ShowDate),
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
+                CustomToggle(
+                  text: 'Save',
+                  icon: Icon(Icons.save_outlined),
+                  onPressed: saveImage,
                 ),
               ],
             ),
