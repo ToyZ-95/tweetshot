@@ -26,7 +26,7 @@ class _CustomToggleState extends State<CustomToggle> {
         Text(
           text,
           style: TextStyle(
-              color: Colors.grey[700],
+              color: Colors.blueAccent[400],
               fontSize: 10.0,
               fontWeight: FontWeight.w800),
         ),
@@ -37,7 +37,7 @@ class _CustomToggleState extends State<CustomToggle> {
           child: IconButton(icon: icon, onPressed: onPressed),
           foregroundColor: Colors.black,
           backgroundColor: Colors.lightBlue[300],
-          radius: 32.0,
+          radius: 30.0,
         ),
       ],
     );
