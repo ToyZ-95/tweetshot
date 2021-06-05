@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
@@ -58,6 +59,14 @@ class _CustomizeTweetState extends State<CustomizeTweet> {
           // _imageFile = image;
           if (image != null) {
             await ImageGallerySaver.saveImage(image);
+            Fluttertoast.showToast(
+                msg: "Saved in gallery",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.BOTTOM,
+                timeInSecForIosWeb: 1,
+                backgroundColor: Colors.blueAccent,
+                textColor: Colors.white,
+                fontSize: 16.0);
           }
         },
       );
