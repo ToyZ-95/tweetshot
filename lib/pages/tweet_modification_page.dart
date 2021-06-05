@@ -43,19 +43,20 @@ class _TweetModificationPageState extends State<TweetModificationPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 StreamBuilder<Object>(
-                    stream: tweetCanvasBloc.stateCanvasStream,
-                    builder: (context, snapshot) {
-                      return Container(
-                        color: snapshot.hasData
-                            ? snapshot.data as Color
-                            : Colors.lightBlueAccent,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 30.0, vertical: 100.0),
-                        child: TweetCanvas(
-                            tweetLink: tweetLink,
-                            tweetCanvasBloc: tweetCanvasBloc),
-                      );
-                    }),
+                  stream: tweetCanvasBloc.stateCanvasStream,
+                  builder: (context, snapshot) {
+                    return Container(
+                      color: snapshot.hasData
+                          ? snapshot.data as Color
+                          : Colors.lightBlueAccent,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 30.0, vertical: 100.0),
+                      child: TweetCanvas(
+                          tweetLink: tweetLink,
+                          tweetCanvasBloc: tweetCanvasBloc),
+                    );
+                  },
+                ),
               ],
             ),
           ),

@@ -35,7 +35,9 @@ class _CustomToggleState extends State<CustomToggle> {
         ),
         CircleAvatar(
           child: IconButton(icon: icon, onPressed: onPressed),
-          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.lightBlue[300],
+          radius: 32.0,
         ),
       ],
     );

@@ -92,65 +92,125 @@ class _TweetCardState extends State<TweetCard> {
                     ),
                   ),
                   SizedBox(height: 5.0),
-                  Text(
-                    DateFormat('h:mm a · MMM d, yyyy')
-                        .format(tweet.data[0].createdAt),
-                    style: TextStyle(
-                        fontSize: 13.0,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey),
-                  ),
-                  SizedBox(height: 10.0),
-                  StreamBuilder<Events>(
+                  StreamBuilder<Map<Events, bool>>(
                       stream: tweetCanvasBloc.stateCustomToggleStream,
+                      initialData: {
+                        Events.ShowLikes: true,
+                        Events.ShowRetweets: true,
+                        Events.ShowComments: true,
+                        Events.ShowDate: true,
+                      },
                       builder: (context, snapshot) {
-                        return Row(
-                          children: <Widget>[
-                            Icon(
-                              Icons.favorite,
-                              color: Colors.pink,
-                              size: 16.0,
-                              semanticLabel:
-                                  'Text to announce in accessibility modes',
-                            ),
-                            SizedBox(width: 5.0),
-                            Text(
-                              tweet.data[0].publicMetrics.likeCount.toString(),
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey),
-                            ),
-                            SizedBox(width: 32.0),
-                            Icon(
-                              Icons.repeat,
-                              color: Colors.green,
-                              size: 16.0,
-                            ),
-                            SizedBox(width: 5.0),
-                            Text(
-                              tweet.data[0].publicMetrics.retweetCount
-                                  .toString(),
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey),
-                            ),
-                            SizedBox(width: 32.0),
-                            Icon(
-                              Icons.mode_comment_outlined,
-                              color: Colors.blueGrey,
-                              size: 16.0,
-                            ),
-                            SizedBox(width: 5.0),
-                            Text(
-                              tweet.data[0].publicMetrics.replyCount.toString(),
-                              style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.grey),
-                            ),
-                          ],
+                        return Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Visibility(
+                                visible: (snapshot.data
+                                        as Map<Events, bool>)[Events.ShowDate]
+                                    as bool,
+                                child: Text(
+                                  DateFormat('h:mm a · MMM d, yyyy')
+                                      .format(tweet.data[0].createdAt),
+                                  style: TextStyle(
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.grey),
+                                ),
+                              ),
+                              SizedBox(height: 10.0),
+                              Row(
+                                children: <Widget>[
+                                  Visibility(
+                                    visible: (snapshot.data as Map<Events,
+                                        bool>)[Events.ShowLikes] as bool,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.favorite,
+                                                color: Colors.pink,
+                                                size: 16.0,
+                                                semanticLabel:
+                                                    'Text to announce in accessibility modes',
+                                              ),
+                                              SizedBox(width: 5.0),
+                                              Text(
+                                                tweet.data[0].publicMetrics
+                                                    .likeCount
+                                                    .toString(),
+                                                style: TextStyle(
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              SizedBox(width: 32.0),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: (snapshot.data as Map<Events,
+                                        bool>)[Events.ShowRetweets] as bool,
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.repeat,
+                                            color: Colors.green,
+                                            size: 16.0,
+                                          ),
+                                          SizedBox(width: 5.0),
+                                          Text(
+                                            tweet.data[0].publicMetrics
+                                                .retweetCount
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                          SizedBox(width: 32.0),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Visibility(
+                                    visible: (snapshot.data as Map<Events,
+                                        bool>)[Events.ShowComments] as bool,
+                                    child: Container(
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.mode_comment_outlined,
+                                            color: Colors.blueGrey,
+                                            size: 16.0,
+                                          ),
+                                          SizedBox(width: 5.0),
+                                          Text(
+                                            tweet.data[0].publicMetrics
+                                                .replyCount
+                                                .toString(),
+                                            style: TextStyle(
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         );
                       }),
                 ],

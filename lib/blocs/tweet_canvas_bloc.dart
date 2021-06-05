@@ -8,14 +8,17 @@ enum Events {
   Fecthed,
   Error,
   BackgroundChanged,
-  ShowLike,
-  ShowRetweet,
-  ShowComments
+  ShowLikes,
+  ShowRetweets,
+  ShowComments,
+  ShowDate,
 }
 
 class TweetCanvasBloc {
   late Tweet tweet;
   Color canvasColor = Colors.blueAccent;
+
+  Map<Events, bool> tweetData = Map<Events, bool>();
 
   final _eventTweetStreamController = StreamController<Events>.broadcast();
   StreamSink<Events> get eventTweetSink => _eventTweetStreamController.sink;
@@ -39,13 +42,18 @@ class TweetCanvasBloc {
   Stream<Events> get eventCustomToggleStream =>
       _eventCustomToggleController.stream;
 
-  final _stateCustomToggleController = StreamController<Events>.broadcast();
-  StreamSink<Events> get stateCustomToggleSink =>
+  final _stateCustomToggleController =
+      StreamController<Map<Events, bool>>.broadcast();
+  StreamSink<Map<Events, bool>> get stateCustomToggleSink =>
       _stateCustomToggleController.sink;
-  Stream<Events> get stateCustomToggleStream =>
+  Stream<Map<Events, bool>> get stateCustomToggleStream =>
       _stateCustomToggleController.stream;
 
   TweetCanvasBloc() {
+    tweetData[Events.ShowLikes] = true;
+    tweetData[Events.ShowRetweets] = true;
+    tweetData[Events.ShowComments] = true;
+    tweetData[Events.ShowDate] = true;
     eventTweetStream.listen((event) {
       if (event == Events.Fetching) {
         stateTweetSink.add('Fetching');
@@ -63,7 +71,20 @@ class TweetCanvasBloc {
     });
 
     eventCustomToggleStream.listen((event) {
-      stateCustomToggleSink.add(event);
+      if (event == Events.ShowLikes) {
+        tweetData[Events.ShowLikes] =
+            tweetData[Events.ShowLikes] == true ? false : true;
+      } else if (event == Events.ShowRetweets) {
+        tweetData[Events.ShowRetweets] =
+            tweetData[Events.ShowRetweets] == true ? false : true;
+      } else if (event == Events.ShowComments) {
+        tweetData[Events.ShowComments] =
+            tweetData[Events.ShowComments] == true ? false : true;
+      } else if (event == Events.ShowDate) {
+        tweetData[Events.ShowDate] =
+            tweetData[Events.ShowDate] == true ? false : true;
+      }
+      stateCustomToggleSink.add(tweetData);
     });
   }
 
